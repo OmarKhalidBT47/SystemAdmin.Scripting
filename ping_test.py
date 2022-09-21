@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
 ##NAME : 
 ##Dont forget to chmod -x ping_test.py before running the file
-##-> install netifaces if it isnt already installed
 import time
 import os
 import subprocess
-import netifaces
 
 os.system("clear")
-
 while(True):
 	
-	#using netifaces to find gateway ip
-	url_ofdefaultgateway=netifaces.gateways()['default'][netifaces.AF_INET][0] #at time of testing it is 10.0.2.2
+	ip_defaultgateway=subprocess.run(["ip","r" ] ,stdout=subprocess.PIPE)
+	#output=> b'default via 10.0.2.2 dev .....' 
+	ip_defaultgateway= str(ip_defaultgateway.stdout).split()[2]  #extracting the ip from output
 	
 	#pinging the ip to test if they work properly
-	print("Pinging Gateway IP... "+ url_ofdefaultgateway)
-	response_Gateway=subprocess.run(["ping", "-c", "1", url_ofdefaultgateway], stdout=subprocess.DEVNULL) #redirecting output for clean user interface
+	print("Pinging Gateway IP... "+ ip_defaultgateway)
+	response_Gateway=subprocess.run(["ping", "-c", "1", ip_defaultgateway], stdout=subprocess.DEVNULL) #redirecting output for clean user interface
 	#if return Address is 0 the test passted 
 	if(response_Gateway.returncode==0): print(">Gateway test: Passed")
 	else : print(">Gateway test: Failed")
