@@ -17,7 +17,7 @@ os.system("clear")
 
 while(True):
 	print("\t\t*********************************")
-	print("\t\t**********\033[92m  Ping tester \033[00m*********")
+	print("\t\t**********\033[92m  Ping Tester \033[00m*********")
 	print("\t\t*********************************")
 	# Select option:
 	# 0 - Quit
@@ -30,7 +30,7 @@ while(True):
 	
 	notvalid=True
 	while (notvalid):
-		# select and enter a number between 1 t0 4.
+		# select and enter a number between 1 to 4.
 		c= input("Select? ")
 		if (not(c.isnumeric())):
 			print("\033[91mInvalid input: Select from 1-4\033[00m")
@@ -58,7 +58,7 @@ while(True):
 		if(ip_defaultgateway=="virbr0"):
 			print("\033[91mLink down... Please connect to a network\033[00m")
 		
-		else:print("your default gateway is \033[93m{}\033[00m".format(ip_defaultgateway))
+		else:print("Your default gateway is \033[93m{}\033[00m".format(ip_defaultgateway))
 	
 	# input 2 - run the default gateway connectivity test
 	# attempt to connect to the default gateway and see if it can establish a connection.
@@ -70,7 +70,7 @@ while(True):
 			print("\033[91mLink down... Please connect to a network\033[00m")
 
 		else:
-			print("Pinging Gateway IP: \033[93m{}\033[00m".format(ip_defaultgateway))
+			print("Pinging Default Gateway: \033[93m{}\033[00m".format(ip_defaultgateway))
 			# ping the default gateway
 			response_Gateway=subprocess.run(["ping", "-c", "1", ip_defaultgateway], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL) #redirecting output for clean user interface,no errors
 			# if return Address is 0 the test passed 
@@ -98,6 +98,6 @@ while(True):
 		if(response_remoteIp.returncode==0): print("\033[92mDNS test Passed\033[00m")
 		else : print("\033[91mDNS test Failed\033[00m")
 		
-	# waits for 2 seconds before clearing the screen	
+	# waits for 5 seconds before clearing the screen	
 	time.sleep(5)
 	os.system("clear")
