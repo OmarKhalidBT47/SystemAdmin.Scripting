@@ -5,7 +5,7 @@
 #colors in print
 #red \033[91m
 #green \033[92m 
-#yello \033[93m 
+#yellow \033[93m 
 #None \033[00m 
 
 import time
@@ -83,7 +83,7 @@ while(True):
 		# pinging the ip to test if they work properly
 		# run a ping command on the remote IP address 129.21.3.17
 		print("Pinging remote Ip: \033[93m129.21.3.17\033[00m")
-		response_remoteIp=subprocess.run(["ping", "-c", "1", "129.21.3.17"], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+		response_remoteIp=subprocess.run(["ping", "-c", "4", "129.21.3.17"], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 		# if return Address is 0 the test passed 
 		if(response_remoteIp.returncode==0): print("\033[92mRemoteIp test Passed \033[00m")
 		else : print("\033[91mRemoteIp test Failed\033[00m") 
@@ -93,11 +93,11 @@ while(True):
 	else:
 		# run a ping command on 'google.com'
 		print("Pinging DNS Address: \033[93mgoogle.com\033[00m")
-		response_remoteIp=subprocess.run(["ping", "-c", "1", "google.com"], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+		response_remoteIp=subprocess.run(["ping", "-c", "4", "google.com"], stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 		#if return Address is 0 the test passted 
 		if(response_remoteIp.returncode==0): print("\033[92mDNS test Passed\033[00m")
 		else : print("\033[91mDNS test Failed\033[00m")
 		
 	# waits for 2 seconds before clearing the screen	
-	time.sleep(2)
+	time.sleep(5)
 	os.system("clear")
