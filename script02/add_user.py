@@ -30,13 +30,15 @@ with open('linux_users.csv', 'r') as f:
         singleUser['Phone']=row[4]
         singleUser['Department']=row[5]
         singleUser['Group']=row[6]
+
         # add only the users with complete information
+        if singleUser['Group'] not in ['office','pubsafety']:
+            print(f'The user {singleUser["EmployeeID"]} has invalid group')
+            continue
         if singleUser['EmployeeID'] and singleUser['LastName'] and singleUser['FirstName'] and singleUser['Office'] and singleUser['Department'] and singleUser['Group']:
             Users.append(singleUser)
-        elif singleUser['Group']!="":
-            print(f'The user {singleUser["EmployeeID"]} has invalid group')
         else:
-            print(f'The user {singleUser["EmployeeID"]} has missing information')
+            print(f'The user {singleUser["EmployeeID"]} has insufficient data')
 # add username column
 for user in Users:
     user['UserName']=user['FirstName'][0]+user['LastName']
@@ -70,7 +72,8 @@ for row in Users:
         if row['Group'] in os.popen('cut -d: -f1 /etc/group').read():
             pass
         else:
-            os.system('sudo groupadd '+row['Group'])
+            # os.system('sudo groupadd '+row['Group'])
+            pass
 
         if not os.path.exists('/home/'+row['Department'].lower()+'/'+row['UserName']):  # if the user directory does not exist
             os.system('sudo useradd -d /home/'+row['Department'].lower()+'/'+row['UserName']+' -s '+shell+' -p $(openssl passwd -1 password) -g '+row['Group']+' '+row['UserName'])      # create the user
@@ -81,4 +84,4 @@ for row in Users:
             print('User '+row['UserName']+' already exists!')   # print the user already exists
     except Exception as e:
         print('Error creating user: '+row['UserName'])
-        print(e)
+        print(e)    
