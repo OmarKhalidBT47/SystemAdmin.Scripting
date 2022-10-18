@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 
 # import the necessary packages
@@ -59,6 +58,8 @@ for k,v in countdict.items():
                 v-=1
 
 # create the users
+
+default_pass='password'
 for row in Users:
     try:
         # create the user
@@ -67,21 +68,25 @@ for row in Users:
             shell='/bin/csh'    # set the shell to csh
         else:   # if the user is in other groups
             shell='/bin/bash'   # set the shell to bash
-        print(f'Processing user {row["EmployeeID"]}')
+        print(f'Processing user {row["EmployeeID"]}',end='\t\t')
         # check if the group exists
-        if row['Group'] in os.popen('cut -d: -f1 /etc/group').read():
-            pass
-        else:
-            # os.system('sudo groupadd '+row['Group'])
-            pass
+        if not os.path.exists(f'/home/{row["Group"]}'):
+            os.system(f'sudo groupadd {row["Group"]}')
+            # create the home directory
+            os.system(f'sudo mkdir /home/{row["Group"]}')   
 
-        if not os.path.exists('/home/'+row['Department'].lower()+'/'+row['UserName']):  # if the user directory does not exist
-            os.system('sudo useradd -d /home/'+row['Department'].lower()+'/'+row['UserName']+' -s '+shell+' -p $(openssl passwd -1 password) -g '+row['Group']+' '+row['UserName'])      # create the user
-            os.system('chage -d 0 '+row['UserName'])        # force the user to change the password on first login
-            print('User created')
-
+        # check if the user exists
+        if not os.path.exists(f'/home/{row["Group"]}/{row["UserName"]}'):
+            # check if the directory exists
+            if not os.path.exists(f'/home/{row["Group"]}/{row["UserName"]}'):
+                os.system(f'sudo mkdir /home/{row["Group"]}/{row["UserName"]}')
+            os.system('sudo useradd -d /home/' + row['Group'] + '/' +row['UserName'] + ' -g ' + row['Group']+ ' -s ' + shell + ' -p ' + default_pass + ' ' + row['UserName'])
+            # # set  default password to expire after first login
+            os.system('sudo chage -d 0 ' + row['UserName'])
+            print(f'\t\tUser {row["EmployeeID"]} added')
         else:
-            print('User '+row['UserName']+' already exists!')   # print the user already exists
+            print(f'User {row["UserName"]} already exists')
+
     except Exception as e:
-        print('Error creating user: '+row['UserName'])
-        print(e)    
+        
+        print(e)
