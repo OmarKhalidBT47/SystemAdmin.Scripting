@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeSettings">
     <configurations>
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
@@ -37,7 +37,7 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/Users/omark/OneDrive/Documents/NSSA221.Scripting"
+    "last_opened_file_path": "C:/Users/omark/OneDrive/Documents/CSEC201"
   }
 }]]></component>
   <component name="RunManager">
@@ -72,6 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1663757842579</updated>
       <workItem from="1663757844175" duration="60000" />
+      <workItem from="1664789056542" duration="24000" />
     </task>
     <servers />
   </component>
