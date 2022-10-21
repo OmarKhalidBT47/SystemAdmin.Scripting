@@ -110,8 +110,16 @@ for row in Users:
             #with given credentials
             os.system('sudo useradd -d /home/' + row['Group'] + '/' +row['UserName'] + ' -g ' + row['Group']+ ' -s ' + shell + ' -p ' + default_pass + ' ' + row['UserName'])
             # set  default password to expire after first login
+              #in every command we are using sudo because it grant administrator's privileges
+           # -d is used to specify the directory which is usually other than default dir
+           # in which new user will be created
+           # -g is used to create a user with  a specified GroupId rather than default
+           # -s: We can assign different login shells to each user with the -s option.
+           # -p: this option create user with a specified username and password.
+           
             # chage command is used to modify the password expiry date of the user's account
-            #in every command we are using sudo because it grant administrator's privileges
+            #-d option : use this option to set the last password change 
+            # date to your specified date in the command.
             os.system('sudo chage -d 0 ' + row['UserName'])
             print(f'\t\tUser {row["EmployeeID"]} added')
         else: 
