@@ -6,6 +6,7 @@ import sys
 from collections import defaultdict
 import re
 import csv
+os.system("clear")
 Users=[]
 # Read the CSV file
 print('Adding new users to the system')
