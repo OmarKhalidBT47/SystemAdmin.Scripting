@@ -40,9 +40,13 @@ while True:
 
     elif option == '2':
         filename = input('Please enter the shortcut/link to remove: ')
-        if os.path.isfile(filename):
-            if os.path.islink(filename):
-                os.remove(filename)
+        # select home directory
+        home= os.path.expanduser('~')
+        # remove the shortcut
+        path= os.path.join(home, filename)
+        if os.path.isfile(path):
+            if os.path.islink(path):
+                os.remove(path)
                 print('Removing Shortcut, please wait.')
                 for i in range(0, 101, 5):
                     sys.stdout.write("\r[%-20s] %d%%" % ('='*int(i/5), i))
@@ -72,11 +76,12 @@ while True:
         print('Your current directory is: ', os.getcwd())
         # The number of links is 
         # use the command find
-        num_links = os.popen('find . -type l | wc -l').read()
+        home= os.path.expanduser('~')
+        num_links = os.popen('find ' + home + ' -type l | wc -l').read()
         print('The number of links in this directory is: ', num_links)
         print("Symbolic link\t\t\t Target Path")
         # use the command find
-        links = os.popen('find . -type l').read()
+        links = os.popen('find ' + home + ' -type l').read()
         # split the links
         links = links.split('\n')
         # remove the last element
