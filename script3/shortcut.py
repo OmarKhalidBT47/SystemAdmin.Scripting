@@ -44,21 +44,17 @@ while True:
         home= os.path.expanduser('~')
         # remove the shortcut
         path= os.path.join(home, filename)
-        if os.path.isfile(path):
-            if os.path.islink(path):
-                os.remove(path)
-                print('Removing Shortcut, please wait.')
-                for i in range(0, 101, 5):
-                    sys.stdout.write("\r[%-20s] %d%%" % ('='*int(i/5), i))
-                    sys.stdout.flush()
-                    time.sleep(0.2)
-                print('Shortcut removed. Returning to Main Menu.')
-                time.sleep(2)
-            else:
-                print('This is not a shortcut. Returning to Main Menu.')
-                time.sleep(2)
+        if os.path.islink(path):
+            os.remove(path)
+            print('Removing Shortcut, please wait.')
+            for i in range(0, 101, 5):
+                sys.stdout.write("\r[%-20s] %d%%" % ('='*int(i/5), i))
+                sys.stdout.flush()
+                time.sleep(0.2)
+            print('Shortcut removed. Returning to Main Menu.')
+            time.sleep(2)
         else:
-            print('File does not exist. Returning to Main Menu.')
+            print('This is not a shortcut. Returning to Main Menu.')
             time.sleep(2)
 
     elif option == '3':
@@ -92,8 +88,8 @@ while True:
             print(link, '\t\t\t', target)
         print('Report Generated. Returning to Main Menu.')
         time.sleep(2)
-#if option q is entered or quit is entered.
-    elif option == 'q' or option == 'quit':
+
+    elif option == 'q':
         print('Exiting Program. Goodbye.')
         time.sleep(2)
         break
