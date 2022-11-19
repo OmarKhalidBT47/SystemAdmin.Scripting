@@ -88,8 +88,7 @@ while True:
             print(link, '\t\t\t', target)
         print('Report Generated. Returning to Main Menu.')
         time.sleep(2)
-
-    elif option == 'q':
+    elif option == 'q' or option == 'quit':
         print('Exiting Program. Goodbye.')
         time.sleep(2)
         break
