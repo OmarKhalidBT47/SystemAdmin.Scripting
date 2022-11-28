@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 ##NAME : Omar Khalid Al Thani
+##DATE STARTED : 29/09/2022
 ##Dont forget to chmod -x ping_test.py before running the file
 
 #colors in print
