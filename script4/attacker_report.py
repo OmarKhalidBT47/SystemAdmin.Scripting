@@ -29,6 +29,8 @@ with open('syslog.log', 'r') as f:
             ip=line.split('from')[1].split('port')[0].strip()
             # print(ip)
             failed[ip]+=1
+# keep only attackers with more than 10 failed attempts
+failed={k:v for k,v in failed.items() if v>=10}
 failed=sorted(failed.items(), key=lambda x: x[1])
 print("COUNT\t\t\tIP ADDRESS\t\tCOUNTRY")
 for i in failed:
