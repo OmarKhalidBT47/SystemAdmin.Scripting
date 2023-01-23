@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+
 
 
 import os
@@ -17,6 +17,7 @@ failed=defaultdict(int)
 with open('syslog.log', 'r') as f:
     data=f.readlines()
     # print(data)
+    ip=''
     for line in data:
         line=line.strip()
         if 'Failed password for root from'  in line:
@@ -24,11 +25,44 @@ with open('syslog.log', 'r') as f:
             ip=line.split(' ')[10]
             # print(ip)
             failed[ip]+=1
+        elif 'Vagrantfile from' in line:
+            # print(line)
+            ip=line.split('from')[1].strip()
+            if 'port' in ip:
+                ip=ip.split('port')[0].strip()
+            failed[ip]+=1
+
         elif 'Failed password for invalid user' in line:
             # print(line)
             ip=line.split('from')[1].split('port')[0].strip()
-            # print(ip)
             failed[ip]+=1
+        elif 'rhost' in line:
+            ip=line.split('rhost=')[1].split(' ')[0]
+            failed[ip]+=1
+        elif 'Received disconnect from' in line:
+            ip=line.split(' ')[8].split(':')[0]
+            failed[ip]+=1
+        elif 'Connection closed by' in line:
+            ip=line.split(' ')[8]
+            failed[ip]+=1
+
+        elif 'Invalid user' in line:
+            ip=line.split(' ')[9]
+            failed[ip]+=1
+        elif 'Did not receive identification string from' in line:
+            ip=line.split(' ')[11]
+            failed[ip]+=1
+        elif 'Failed password for' in line:
+            ip=line.split('from')[1].split('port')[0].strip()
+            failed[ip]+=1
+
+# remove the IP address from the dictionary if the count is less than 10
+for ip in list(failed):
+    if failed[ip] < 10:
+        del failed[ip]
+# print(failed)
+
+            
 failed=sorted(failed.items(), key=lambda x: x[1])
 print("COUNT\t\t\tIP ADDRESS\t\tCOUNTRY")
 for i in failed:
